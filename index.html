@@ -16,13 +16,27 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
       padding: 30px;
     }
     h1 {
-      margin-bottom: 30px;
+      margin-bottom: 10px;
       font-size: 2.5rem;
       color: #490CCC;
+    }
+    .counter, .likes {
+      color: white;
+      margin: 10px;
+      font-size: 18px;
+    }
+    .like-button {
+      background: #490CCC;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-bottom: 30px;
     }
     .card-group {
       display: grid;
@@ -55,7 +69,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.7); /* overlay effect */
+      background: rgba(0, 0, 0, 0.7);
       opacity: 0;
       display: flex;
       flex-direction: column;
@@ -94,50 +108,74 @@
 
   <h1>My Photo Gallery</h1>
 
+  <!-- Visitor Counter -->
+  <div class="counter">
+    Visitors: <span id="visitor-count">Loading...</span>
+  </div>
+
+  <!-- Like Button -->
+  <button class="like-button" onclick="addLike()">Like ❤️</button>
+  <div class="likes">
+    Likes: <span id="like-count">Loading...</span>
+  </div>
+
+  <!-- Cards (Photos) -->
   <div class="card-group">
-    
-    <!-- PHOTO 1 -->
+    <!-- Card 1 -->
     <div class="card">
       <img src="IMG_20250406_141128_830.webp" alt="Joyful during Eid">
       <div class="info">
         <h2>JOYFULL</h2>
-        <p>
-          Subject: Rayburn_509<br>
-          Location: Mnarani<br>
-          Info: This pic was taken during Muslim celebration (Eid-el-Fitri)
-        </p>
-        <button>EXPLORE</button>
+        <p>Subject: Rayburn_509<br>Location: Mnarani<br>Info: Taken during Eid</p>
+        <button>Explore</button>
       </div>
     </div>
 
-    <!-- PHOTO 2 -->
+    <!-- Card 2 -->
     <div class="card">
       <img src="IMG_20250418_130607_963.webp" alt="Picture show backdoor">
       <div class="info">
         <h2>PICTURE SHOW</h2>
-        <p>
-          Subject: Rayburn_509 (Toxic)<br>
-          Location: Back door of Michenzani Mall<br>
-          Info: This picture was taken when friends suggested me to try solo shot.
-        </p>
-        <button>EXPLORE</button>
+        <p>Subject: Rayburn_509 (Toxic)<br>Location: Michenzani Mall<br>Info: Solo shot experience</p>
+        <button>Explore</button>
       </div>
     </div>
 
-    <!-- PHOTO 3 -->
+    <!-- Card 3 -->
     <div class="card">
-      <img src="no 3.jpeg" alt="Happy birthday moment">
+      <img src="no3.jpeg" alt="Happy birthday moment">
       <div class="info">
         <h2>HAPPY BIRTHDAY</h2>
-        <p>
-          Subject: Rayburn & Varane<br>
-          Location: Husein Academy<br>
-          Info: This picture was taken during sibling's birthday party.
-        </p>
-        <button>EXPLORE</button>
+        <p>Subject: Rayburn & Varane<br>Location: Husein Academy<br>Info: Sibling's birthday</p>
+        <button>Explore</button>
       </div>
     </div>
   </div>
+
+  <script>
+    // Visitor Counter
+    fetch('https://api.countapi.xyz/hit/YOUR_UNIQUE_VISITOR_KEY/visits')
+      .then(res => res.json())
+      .then(res => {
+        document.getElementById('visitor-count').innerText = res.value;
+      });
+
+    // Likes Counter
+    function addLike() {
+      fetch('https://api.countapi.xyz/update/YOUR_UNIQUE_LIKE_KEY/likes/?amount=1')
+        .then(res => res.json())
+        .then(res => {
+          document.getElementById('like-count').innerText = res.value;
+        });
+    }
+
+    // Show Likes on Load
+    fetch('https://api.countapi.xyz/get/YOUR_UNIQUE_LIKE_KEY/likes')
+      .then(res => res.json())
+      .then(res => {
+        document.getElementById('like-count').innerText = res.value;
+      });
+  </script>
 
 </body>
 </html>
