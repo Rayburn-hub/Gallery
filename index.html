@@ -13,35 +13,21 @@
     body {
       background: #0A0617;
       min-height: 100vh;
+      padding: 30px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 30px;
     }
     h1 {
-      margin-bottom: 10px;
-      font-size: 2.5rem;
+      margin-bottom: 20px;
+      font-size: 2.8rem;
       color: #490CCC;
-    }
-    .counter, .likes {
-      color: white;
-      margin: 10px;
-      font-size: 18px;
-    }
-    .like-button {
-      background: #490CCC;
-      border: none;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 16px;
-      margin-bottom: 30px;
+      text-align: center;
     }
     .card-group {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
       width: 100%;
       max-width: 1200px;
     }
@@ -49,58 +35,61 @@
       position: relative;
       overflow: hidden;
       border-radius: 20px;
+      background: #1C1234;
       cursor: pointer;
-      height: 400px;
-      background-color: #1C1234;
+      height: 450px;
+      display: flex;
+      flex-direction: column;
     }
     .card img {
       width: 100%;
-      height: 100%;
+      height: 70%;
       object-fit: cover;
-      display: block;
-      transition: transform 0.5s ease;
+      transition: transform 0.5s;
     }
     .card:hover img {
-      transform: scale(1.1);
+      transform: scale(1.05);
     }
     .info {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.7);
-      opacity: 0;
+      padding: 15px;
+      color: white;
+      flex-grow: 1;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 20px;
-      transition: opacity 0.5s ease;
-      color: white;
+      justify-content: space-between;
     }
-    .card:hover .info {
-      opacity: 1;
-    }
-    .info h2 {
+    .info-text {
       margin-bottom: 10px;
+    }
+    .info-text h2 {
       font-size: 22px;
+      margin-bottom: 5px;
     }
-    .info p {
+    .info-text p {
       font-size: 14px;
-      margin-bottom: 15px;
+      color: #ddd;
     }
-    .info button {
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .like-button {
       background: #490CCC;
       border: none;
-      padding: 10px 20px;
+      padding: 8px 15px;
       border-radius: 10px;
       color: white;
       cursor: pointer;
+      font-size: 15px;
+      transition: 0.3s;
     }
-    .info button:hover {
+    .like-button:hover {
       background: #3709aa;
+    }
+    .counter {
+      font-size: 14px;
+      color: #aaa;
     }
   </style>
 </head>
@@ -108,26 +97,20 @@
 
   <h1>My Photo Gallery</h1>
 
-  <!-- Visitor Counter -->
-  <div class="counter">
-    Visitors: <span id="visitor-count">Loading...</span>
-  </div>
-
-  <!-- Like Button -->
-  <button class="like-button" onclick="addLike()">Like ❤️</button>
-  <div class="likes">
-    Likes: <span id="like-count">Loading...</span>
-  </div>
-
-  <!-- Cards (Photos) -->
   <div class="card-group">
+
     <!-- Card 1 -->
     <div class="card">
       <img src="IMG_20250406_141128_830.webp" alt="Joyful during Eid">
       <div class="info">
-        <h2>JOYFULL</h2>
-        <p>Subject: Rayburn_509<br>Location: Mnarani<br>Info: Taken during Eid</p>
-        <button>Explore</button>
+        <div class="info-text">
+          <h2>JOYFULL</h2>
+          <p>Location: Mnarani | Event: Eid Celebration</p>
+        </div>
+        <div class="buttons">
+          <button class="like-button" onclick="addLike('joyfull')">❤️ Like (<span id="like-joyfull">0</span>)</button>
+          <div class="counter">Views: <span id="view-joyfull">0</span></div>
+        </div>
       </div>
     </div>
 
@@ -135,9 +118,14 @@
     <div class="card">
       <img src="IMG_20250418_130607_963.webp" alt="Picture show backdoor">
       <div class="info">
-        <h2>PICTURE SHOW</h2>
-        <p>Subject: Rayburn_509 (Toxic)<br>Location: Michenzani Mall<br>Info: Solo shot experience</p>
-        <button>Explore</button>
+        <div class="info-text">
+          <h2>PICTURE SHOW</h2>
+          <p>Location: Michenzani Mall | Event: Solo Shot</p>
+        </div>
+        <div class="buttons">
+          <button class="like-button" onclick="addLike('picture_show')">❤️ Like (<span id="like-picture_show">0</span>)</button>
+          <div class="counter">Views: <span id="view-picture_show">0</span></div>
+        </div>
       </div>
     </div>
 
@@ -145,36 +133,51 @@
     <div class="card">
       <img src="no3.jpeg" alt="Happy birthday moment">
       <div class="info">
-        <h2>HAPPY BIRTHDAY</h2>
-        <p>Subject: Rayburn & Varane<br>Location: Husein Academy<br>Info: Sibling's birthday</p>
-        <button>Explore</button>
+        <div class="info-text">
+          <h2>HAPPY BIRTHDAY</h2>
+          <p>Location: Husein Academy | Event: Sibling's Birthday</p>
+        </div>
+        <div class="buttons">
+          <button class="like-button" onclick="addLike('birthday')">❤️ Like (<span id="like-birthday">0</span>)</button>
+          <div class="counter">Views: <span id="view-birthday">0</span></div>
+        </div>
       </div>
     </div>
+
   </div>
 
   <script>
-    // Visitor Counter
-    fetch('https://api.countapi.xyz/hit/YOUR_UNIQUE_VISITOR_KEY/visits')
-      .then(res => res.json())
-      .then(res => {
-        document.getElementById('visitor-count').innerText = res.value;
-      });
+    // Cards and their keys
+    const cards = ['joyfull', 'picture_show', 'birthday'];
 
-    // Likes Counter
-    function addLike() {
-      fetch('https://api.countapi.xyz/update/YOUR_UNIQUE_LIKE_KEY/likes/?amount=1')
+    // Load view and likes for each card
+    cards.forEach(card => {
+      // Update view count
+      fetch(`https://api.countapi.xyz/hit/your_namespace/${card}_views`)
         .then(res => res.json())
-        .then(res => {
-          document.getElementById('like-count').innerText = res.value;
+        .then(data => {
+          document.getElementById(`view-${card}`).innerText = data.value;
+        });
+
+      // Get current likes
+      fetch(`https://api.countapi.xyz/get/your_namespace/${card}_likes`)
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById(`like-${card}`).innerText = data.value;
+        })
+        .catch(() => {
+          document.getElementById(`like-${card}`).innerText = 0;
+        });
+    });
+
+    // Add like
+    function addLike(card) {
+      fetch(`https://api.countapi.xyz/update/your_namespace/${card}_likes/?amount=1`)
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById(`like-${card}`).innerText = data.value;
         });
     }
-
-    // Show Likes on Load
-    fetch('https://api.countapi.xyz/get/YOUR_UNIQUE_LIKE_KEY/likes')
-      .then(res => res.json())
-      .then(res => {
-        document.getElementById('like-count').innerText = res.value;
-      });
   </script>
 
 </body>
