@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Photo Gallery</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+    body {
+      background: #0A0617;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 30px;
+    }
+    h1 {
+      margin-bottom: 30px;
+      font-size: 2.5rem;
+      color: #490CCC;
+    }
+    .card-group {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      width: 100%;
+      max-width: 1200px;
+    }
+    .card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+      cursor: pointer;
+      height: 400px;
+      background-color: #1C1234;
+    }
+    .card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .card:hover img {
+      transform: scale(1.1);
+    }
+    .info {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7); /* overlay effect */
+      opacity: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      transition: opacity 0.5s ease;
+      color: white;
+    }
+    .card:hover .info {
+      opacity: 1;
+    }
+    .info h2 {
+      margin-bottom: 10px;
+      font-size: 22px;
+    }
+    .info p {
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+    .info button {
+      background: #490CCC;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      color: white;
+      cursor: pointer;
+    }
+    .info button:hover {
+      background: #3709aa;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>My Photo Gallery</h1>
+
+  <div class="card-group">
+    
+    <!-- PHOTO 1 -->
+    <div class="card">
+      <img src="IMG_20250406_141128_830.webp" alt="Joyful during Eid">
+      <div class="info">
+        <h2>JOYFULL</h2>
+        <p>
+          Subject: Rayburn_509<br>
+          Location: Mnarani<br>
+          Info: This pic was taken during Muslim celebration (Eid-el-Fitri)
+        </p>
+        <button>EXPLORE</button>
+      </div>
+    </div>
+
+    <!-- PHOTO 2 -->
+    <div class="card">
+      <img src="IMG_20250418_130607_963.webp" alt="Picture show backdoor">
+      <div class="info">
+        <h2>PICTURE SHOW</h2>
+        <p>
+          Subject: Rayburn_509 (Toxic)<br>
+          Location: Back door of Michenzani Mall<br>
+          Info: This picture was taken when friends suggested me to try solo shot.
+        </p>
+        <button>EXPLORE</button>
+      </div>
+    </div>
+
+    <!-- PHOTO 3 -->
+    <div class="card">
+      <img src="no 3.jpeg" alt="Happy birthday moment">
+      <div class="info">
+        <h2>HAPPY BIRTHDAY</h2>
+        <p>
+          Subject: Rayburn & Varane<br>
+          Location: Husein Academy<br>
+          Info: This picture was taken during sibling's birthday party.
+        </p>
+        <button>EXPLORE</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
