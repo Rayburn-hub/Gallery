@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>My Photo Gallery</title>
+  <title>My Gallery</title>
   <style>
     * {
       margin: 0;
@@ -12,132 +12,188 @@
     }
     body {
       background: #0A0617;
+      padding: 20px;
       min-height: 100vh;
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      padding: 30px;
+      justify-content: center;
     }
-    h1 {
-      margin-bottom: 30px;
-      font-size: 2.5rem;
-      color: #490CCC;
-    }
-    .card-group {
+    .gallery {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 20px;
+      max-width: 1000px;
       width: 100%;
-      max-width: 1200px;
     }
     .card {
-      position: relative;
-      overflow: hidden;
+      background: #111;
       border-radius: 20px;
-      cursor: pointer;
-      height: 400px;
-      background-color: #1C1234;
+      overflow: hidden;
+      position: relative;
+      transition: transform 0.3s;
+      transform: scale(0.95);
+      animation: fadeIn 0.8s ease forwards;
+    }
+    @keyframes fadeIn {
+      to { transform: scale(1); }
+    }
+    .card:hover {
+      transform: scale(1.02);
     }
     .card img {
       width: 100%;
-      height: 100%;
+      height: 400px;
       object-fit: cover;
+      object-position: center top;
       display: block;
-      transition: transform 0.5s ease;
-    }
-    .card:hover img {
-      transform: scale(1.1);
+      transition: transform 0.5s;
     }
     .info {
       position: absolute;
-      top: 0;
-      left: 0;
+      bottom: 50px;
+      background: rgba(0, 0, 0, 0.6);
       width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.7); /* overlay effect */
-      opacity: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 20px;
-      transition: opacity 0.5s ease;
+      padding: 10px;
+      transform: translateY(100%);
+      transition: transform 0.4s ease;
       color: white;
+      pointer-events: none;
     }
     .card:hover .info {
-      opacity: 1;
+      transform: translateY(0);
     }
-    .info h2 {
-      margin-bottom: 10px;
-      font-size: 22px;
+    .info h1 {
+      font-size: 18px;
+      margin-bottom: 5px;
     }
     .info p {
       font-size: 14px;
-      margin-bottom: 15px;
+      color: #ccc;
     }
-    .info button {
-      background: #490CCC;
+    .counters {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background: #0A0617;
+      padding: 8px 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+    }
+    .view-count, .like-count {
+      font-size: 13px;
+      color: #aaa;
+    }
+    .like-button {
+      background: transparent;
       border: none;
-      padding: 10px 20px;
-      border-radius: 10px;
-      color: white;
+      color: #ccc;
+      font-size: 16px;
       cursor: pointer;
+      transition: transform 0.2s;
+      z-index: 20;
     }
-    .info button:hover {
-      background: #3709aa;
+    .like-button:hover {
+      color: #ff4d4d;
+    }
+
+    /* Pop effect when clicked */
+    .like-button.pop {
+      transform: scale(1.5);
+    }
+
+    /* Responsive image adjustment for very small screens */
+    @media(max-width: 500px) {
+      .card img {
+        height: 300px;
+      }
     }
   </style>
 </head>
 <body>
 
-  <h1>My Photo Gallery</h1>
+<div class="gallery">
 
-  <div class="card-group">
-    
-    <!-- PHOTO 1 -->
-    <div class="card">
-      <img src="IMG_20250406_141128_830.webp" alt="Joyful during Eid">
-      <div class="info">
-        <h2>JOYFULL</h2>
-        <p>
-          Subject: Rayburn_509<br>
-          Location: Mnarani<br>
-          Info: This pic was taken during Muslim celebration (Eid-el-Fitri)
-        </p>
-        <button>EXPLORE</button>
-      </div>
+  <!-- Card 1 -->
+  <div class="card" data-id="joyfull">
+    <img src="IMG_20250406_141128_830.webp" alt="Joyfull">
+    <div class="info">
+      <h1>JOYFULL</h1>
+      <p>Location: Mnarani (Eid-El-Fitri)</p>
     </div>
-
-    <!-- PHOTO 2 -->
-    <div class="card">
-      <img src="IMG_20250418_130607_963.webp" alt="Picture show backdoor">
-      <div class="info">
-        <h2>PICTURE SHOW</h2>
-        <p>
-          Subject: Rayburn_509 (Toxic)<br>
-          Location: Back door of Michenzani Mall<br>
-          Info: This picture was taken when friends suggested me to try solo shot.
-        </p>
-        <button>EXPLORE</button>
-      </div>
-    </div>
-
-    <!-- PHOTO 3 -->
-    <div class="card">
-      <img src="no3.jpeg" alt="Happy birthday moment">
-      <div class="info">
-        <h2>HAPPY BIRTHDAY</h2>
-        <p>
-          Subject: Rayburn & Varane<br>
-          Location: Husein Academy<br>
-          Info: This picture was taken during sibling's birthday party.
-        </p>
-        <button>EXPLORE</button>
-      </div>
+    <div class="counters">
+      <span class="view-count">Views: 0</span>
+      <button class="like-button" onclick="likePhoto(this)">❤️ <span class="like-count">0</span></button>
     </div>
   </div>
+
+  <!-- Card 2 -->
+  <div class="card" data-id="picture">
+    <img src="IMG_20250418_130607_963.webp" alt="Picture Show">
+    <div class="info">
+      <h1>PICTURE SHOW</h1>
+      <p>Location: Michenzani Mall</p>
+    </div>
+    <div class="counters">
+      <span class="view-count">Views: 0</span>
+      <button class="like-button" onclick="likePhoto(this)">❤️ <span class="like-count">0</span></button>
+    </div>
+  </div>
+
+  <!-- Card 3 -->
+  <div class="card" data-id="birthday">
+    <img src="no 3.jpeg" alt="Happy Birthday">
+    <div class="info">
+      <h1>HAPPY BIRTHDAY</h1>
+      <p>Location: Husein Academy</p>
+    </div>
+    <div class="counters">
+      <span class="view-count">Views: 0</span>
+      <button class="like-button" onclick="likePhoto(this)">❤️ <span class="like-count">0</span></button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// Auto generate namespace from website name
+const namespace = window.location.hostname.replace(/\./g, '-') || 'my-gallery';
+
+// Load counters
+document.querySelectorAll('.card').forEach(card => {
+  const id = card.dataset.id;
+
+  // Hit the views
+  fetch(`https://api.countapi.xyz/hit/${namespace}/${id}_views`)
+    .then(res => res.json())
+    .then(data => {
+      card.querySelector('.view-count').innerText = `Views: ${data.value}`;
+    });
+
+  // Get the likes
+  fetch(`https://api.countapi.xyz/get/${namespace}/${id}_likes`)
+    .then(res => res.json())
+    .then(data => {
+      card.querySelector('.like-count').innerText = data.value;
+    });
+});
+
+// Like function
+function likePhoto(button) {
+  const card = button.closest('.card');
+  const id = card.dataset.id;
+
+  fetch(`https://api.countapi.xyz/hit/${namespace}/${id}_likes`)
+    .then(res => res.json())
+    .then(data => {
+      button.querySelector('.like-count').innerText = data.value;
+
+      // Add pop animation
+      button.classList.add('pop');
+      setTimeout(() => button.classList.remove('pop'), 300);
+    });
+}
+</script>
 
 </body>
 </html>
