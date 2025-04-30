@@ -50,11 +50,11 @@
       transform: scale(1.02);
     }
     .card img {
-      height: auto;
-      max-height: 500px;
-      width: 100%;
-      object-fit: contain;
-    }
+  height: auto;
+  max-height: 500px;
+  width: 100%;
+  object-fit: contain;
+}
     .info {
       position: absolute;
       bottom: 50px;
@@ -123,7 +123,7 @@
 <div class="gallery">
 
   <!-- Card 1 -->
-  <div class="card" data-id="joyfull-mnarani">
+  <div class="card" data-id="joyfull">
     <img src="IMG_20250406_141128_830.webp" alt="Rayburn509 celebrating Eid at Mnarani with friends">
     <div class="info">
       <h1>JOYFULL</h1>
@@ -135,8 +135,8 @@
     </div>
   </div>
 
-  <!-- Card 2 (Michenzani) -->
-  <div class="card" data-id="picture-michenzani">
+  <!-- Card 2 -->
+  <div class="card" data-id="picture">
     <img src="IMG_20250418_130607_963.webp" alt="Rayburn509 solo photo at Michenzani Mall backdoor">
     <div class="info">
       <h1>PICTURE SHOW</h1>
@@ -148,21 +148,8 @@
     </div>
   </div>
 
-  <!-- Card 3 (Drawing) -->
-  <div class="card" data-id="drawing-jungkook">
-    <img src="20250419_051728.jpg" alt="A Jungkook drawing ">
-    <div class="info">
-      <h1>Drawing</h1>
-      <p>Location: Paper</p>
-    </div>
-    <div class="counters">
-      <span class="view-count">Views: 0</span>
-      <button class="like-button" onclick="likePhoto(this)">❤️ <span class="like-count">0</span></button>
-    </div>
-  </div>
-
-  <!-- Card 4 (Birthday) -->
-  <div class="card" data-id="birthday-husein-academy">
+    <!-- Card 3 -->
+  <div class="card" data-id="birthday">
     <img src="no3.jpeg" alt="Rayburn509 and Varane celebrating a sibling's birthday at Husein Academy">
     <div class="info">
       <h1>HAPPY BIRTHDAY</h1>
@@ -184,21 +171,19 @@ const namespace = window.location.hostname.replace(/\./g, '-') || 'my-gallery';
 document.querySelectorAll('.card').forEach(card => {
   const id = card.dataset.id;
 
-  // Hit the views
-  fetch(`https://api.countapi.xyz/hit/${namespace}/${id}_views`)
+  // Hit the views using HitsAPI
+  fetch(`https://api.hitsapi.xyz/hit/${namespace}/${id}_views`)
     .then(res => res.json())
     .then(data => {
       card.querySelector('.view-count').innerText = `Views: ${data.value}`;
-    })
-    .catch(err => console.error('View counter error:', err));
+    });
 
-  // Get the likes
-  fetch(`https://api.countapi.xyz/get/${namespace}/${id}_likes`)
+  // Get the likes using HitsAPI
+  fetch(`https://api.hitsapi.xyz/get/${namespace}/${id}_likes`)
     .then(res => res.json())
     .then(data => {
       card.querySelector('.like-count').innerText = data.value;
-    })
-    .catch(err => console.error('Like counter error:', err));
+    });
 });
 
 // Like function
@@ -206,8 +191,8 @@ function likePhoto(button) {
   const card = button.closest('.card');
   const id = card.dataset.id;
 
-  // Fetch the like count to increment
-  fetch(`https://api.countapi.xyz/hit/${namespace}/${id}_likes`)
+  // Fetch the like count to increment using HitsAPI
+  fetch(`https://api.hitsapi.xyz/hit/${namespace}/${id}_likes`)
     .then(res => res.json())
     .then(data => {
       // Update the like count on the page
@@ -216,8 +201,7 @@ function likePhoto(button) {
       // Add pop animation
       button.classList.add('pop');
       setTimeout(() => button.classList.remove('pop'), 300);
-    })
-    .catch(err => console.error('Like counter error:', err));
+    });
 }
 </script>
 
