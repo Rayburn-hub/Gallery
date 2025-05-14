@@ -2,208 +2,256 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <title>My Gallery</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Explore my personal photo gallery showcasing memorable moments including Eid celebrations, birthdays, and adventures.">
-  <meta name="keywords" content="photo gallery, memories, photography, Eid, birthday, Mnarani, Michenzani">
-  <meta name="author" content="Rayburn509">
-  <meta property="og:title" content="Rayburn509's Gallery">
-  <meta property="og:description" content="View beautiful moments captured by Rayburn509, including Eid, birthdays, and more.">
-  <meta property="og:image" content="IMG_20250406_141128_830.webp">
-  <meta property="og:url" content="https://your-github-page-url.com">
-  <title>Rayburn509's Photo Gallery</title>
-
   <style>
-    /* Styles remain the same as before */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
     }
+
     body {
       background: #0A0617;
-      padding: 20px;
+      transition: background 0.3s ease, color 0.3s ease;
       min-height: 100vh;
-      display: flex;
-      justify-content: center;
+      padding: 80px 20px 20px;
     }
-    .gallery {
+
+    body.light {
+      background: #f5f5f5;
+      color: black;
+      
+    }
+
+    .title {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 998;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .card-container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 20px;
-      max-width: 1000px;
-      width: 100%;
+      margin-top: 40px;
     }
+
     .card {
       background: #111;
       border-radius: 20px;
       overflow: hidden;
       position: relative;
-      transition: transform 0.3s;
-      transform: scale(0.95);
-      animation: fadeIn 0.8s ease forwards;
+      cursor: pointer;
+      transition: transform 0.4s ease;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     }
-    @keyframes fadeIn {
-      to { transform: scale(1); }
+
+    body.light .card {
+      background: #fff;
+      color: #000;
     }
-    .card:hover {
-      transform: scale(1.02);
-    }
+
     .card img {
-  height: auto;
-  max-height: 500px;
-  width: 100%;
-  object-fit: contain;
-}
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+      display: block;
+      height: 400px;
+    }
+
+    .layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.45);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
     .info {
       position: absolute;
-      bottom: 50px;
-      background: rgba(0, 0, 0, 0.6);
+      bottom: -99px;
+      left: 0;
       width: 100%;
-      padding: 10px;
-      transform: translateY(100%);
-      transition: transform 0.4s ease;
-      color: white;
-      pointer-events: none;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 15px;
+      text-align: left;
+      transition: all 0.4s ease;
+      opacity: 1;
     }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .card:hover img {
+      transform: scale(1.1);
+    }
+
+    .card:hover .layer {
+      opacity: 1;
+    }
+
     .card:hover .info {
-      transform: translateY(0);
+      bottom: 0;
+      opacity: 1;
     }
+
     .info h1 {
       font-size: 18px;
-      margin-bottom: 5px;
+      margin-bottom: 6px;
     }
+
     .info p {
-      font-size: 14px;
-      color: #ccc;
-    }
-    .counters {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      background: #0A0617;
-      padding: 8px 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 10;
-    }
-    .view-count, .like-count {
       font-size: 13px;
-      color: #aaa;
+      line-height: 1.4;
     }
-    .like-button {
-      background: transparent;
+
+    .info button {
+      background: #490CCC;
       border: none;
-      color: #ccc;
-      font-size: 16px;
+      border-radius: 12px;
+      padding: 8px 14px;
+      margin-top: 10px;
+      color: white;
       cursor: pointer;
-      transition: transform 0.2s;
-      z-index: 20;
-    }
-    .like-button:hover {
-      color: #ff4d4d;
     }
 
-    /* Pop effect when clicked */
-    .like-button.pop {
-      transform: scale(1.5);
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 999;
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+      transition: background 2s ease;
     }
 
-    /* Responsive image adjustment for very small screens */
-    @media(max-width: 500px) {
-      .card img {
-        height: 300px;
-      }
+    .theme-toggle span {
+      font-size: 24px;
+      display: inline-block;
+      transition: all 0.8s ease;
+    }
+
+    .theme-toggle span.moon {
+      color: yellow;
+      text-shadow: 0 0 12px white;
+    }
+
+    .theme-toggle span.sun {
+      color: orange;
+      text-shadow: 0 0 12px gold;
+    }
+
+    body.light .info {
+      background: rgba(255, 255, 255, 0.7);
+      color: black;
+    }
+
+    body.light .info h1,
+    body.light .info p {
+      color: black;
+    }
+
+    body.light .info button {
+      background: #333;
+      color: white;
     }
   </style>
 </head>
 <body>
+  <div class="title">My Gallery</div>
 
-<div class="gallery">
+  <div class="theme-toggle" id="themeToggle">
+    <span class="moon">🌙</span>
+  </div>
 
-  <!-- Card 1 -->
-  <div class="card" data-id="joyfull">
-    <img src="IMG_20250406_141128_830.webp" alt="Rayburn509 celebrating Eid at Mnarani with friends">
-    <div class="info">
-      <h1>JOYFULL</h1>
-      <p>Location: Mnarani (Eid-El-Fitri)</p>
+  <div class="card-container">
+    <div class="card">
+      <img src="IMG_20250406_141128_830.webp" alt="Joyfull">
+      <div class="layer"></div>
+      <div class="info">
+        <h1>JOYFULL</h1>
+        <p>
+          Character: Rayburn_509<br>
+          Location: Mnarani<br>
+          Info: This pic was taken during Muslim celebration (Eid-el-Fitri)
+        </p>
+        <button>EXPLORE</button>
+      </div>
     </div>
-    <div class="counters">
-      <span class="view-count">Views: 0</span>
-      <button class="like-button" onclick="likePhoto(this)">❤️ <span class="like-count">0</span></button>
+
+    <div class="card">
+      <img src="IMG_20250418_130607_963.webp" alt="Picture Show">
+      <div class="layer"></div>
+      <div class="info">
+        <h1>PICTURE SHOW</h1>
+        <p>
+          Subject: Rayburn_509 (Toxic)<br>
+          Location: Back door of Michenzani mall<br>
+          Info: Picture taken when guys suggested solo pic
+        </p>
+        <button>EXPLORE</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="no 3.jpeg" alt="Happy Birthday">
+      <div class="layer"></div>
+      <div class="info">
+        <h1>HAPPY BIRTHDAY</h1>
+        <p>
+          Subject: Rayburn & Varane<br>
+          Location: Husein Academy<br>
+          Info: Picture taken during sibling's birthday
+        </p>
+        <button>EXPLORE</button>
+      </div>
     </div>
   </div>
 
-  <!-- Card 2 -->
-  <div class="card" data-id="picture">
-    <img src="IMG_20250418_130607_963.webp" alt="Rayburn509 solo photo at Michenzani Mall backdoor">
-    <div class="info">
-      <h1>PICTURE SHOW</h1>
-      <p>Location: Michenzani Mall</p>
-    </div>
-    <div class="counters">
-      <span class="view-count">Views: 0</span>
-      <button class="like-button" onclick="likePhoto(this)">❤️ <span class="like-count">0</span></button>
-    </div>
-  </div>
+  <script>
+    const themeToggle = document.getElementById('themeToggle');
+    const span = themeToggle.querySelector('span');
+    const body = document.body;
 
-    <!-- Card 3 -->
-  <div class="card" data-id="birthday">
-    <img src="no3.jpeg" alt="Rayburn509 and Varane celebrating a sibling's birthday at Husein Academy">
-    <div class="info">
-      <h1>HAPPY BIRTHDAY</h1>
-      <p>Location: Husein Academy</p>
-    </div>
-    <div class="counters">
-      <span class="view-count">Views: 0</span>
-      <button class="like-button" onclick="likePhoto(this)">❤️ <span class="like-count">0</span></button>
-    </div>
-  </div>
+    function setTheme(theme) {
+      if (theme === 'light') {
+        body.classList.add('light');
+        span.className = 'sun';
+        span.textContent = '☀️';
+      } else {
+        body.classList.remove('light');
+        span.className = 'moon';
+        span.textContent = '🌙';
+      }
+    }
 
-</div>
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    setTheme(savedTheme);
 
-<script>
-// Auto generate namespace from website name
-const namespace = window.location.hostname.replace(/\./g, '-') || 'my-gallery';
-
-// Load counters
-document.querySelectorAll('.card').forEach(card => {
-  const id = card.dataset.id;
-
-  // Hit the views using HitsAPI
-  fetch(`https://api.hitsapi.xyz/hit/${namespace}/${id}_views`)
-    .then(res => res.json())
-    .then(data => {
-      card.querySelector('.view-count').innerText = `Views: ${data.value}`;
-    });
-
-  // Get the likes using HitsAPI
-  fetch(`https://api.hitsapi.xyz/get/${namespace}/${id}_likes`)
-    .then(res => res.json())
-    .then(data => {
-      card.querySelector('.like-count').innerText = data.value;
-    });
-});
-
-// Like function
-function likePhoto(button) {
-  const card = button.closest('.card');
-  const id = card.dataset.id;
-
-  // Fetch the like count to increment using HitsAPI
-  fetch(`https://api.hitsapi.xyz/hit/${namespace}/${id}_likes`)
-    .then(res => res.json())
-    .then(data => {
-      // Update the like count on the page
-      button.querySelector('.like-count').innerText = data.value;
-
-      // Add pop animation
-      button.classList.add('pop');
-      setTimeout(() => button.classList.remove('pop'), 300);
-    });
-}
-</script>
-
+    themeToggle.onclick = () => {
+      const currentTheme = body.classList.contains('light') ? 'light' : 'dark';
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      setTheme(newTheme);
+      localStorage.setItem('theme', newTheme);
+    };
+  </script>
 </body>
 </html>
