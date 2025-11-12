@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Personal pictures</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
+    }
+
+    body {
+      background: #0A0617;
+      transition: background 0.3s ease, color 0.3s ease;
+      min-height: 100vh;
+      padding: 80px 20px 20px;
+    }
+
+    body.light {
+      background: #f5f5f5;
+      color: black;
+    }
+
+    .title {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 998;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .card-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 40px;
+    }
+
+    .card {
+      background: #111;
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.4s ease;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    body.light .card {
+      background: #fff;
+      color: #000;
+    }
+
+    .card img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+      display: block;
+    }
+
+    .layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.45);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .info {
+      position: absolute;
+      bottom: -99px;
+      left: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 15px;
+      text-align: left;
+      transition: all 0.4s ease;
+      opacity: 1;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .card:hover img {
+      transform: scale(1.1);
+    }
+
+    .card:hover .layer {
+      opacity: 1;
+    }
+
+    .card:hover .info {
+      bottom: 0;
+      opacity: 1;
+    }
+
+    .info h1 {
+      font-size: 18px;
+      margin-bottom: 6px;
+    }
+
+    .info p {
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .info button {
+      background: #490CCC;
+      border: none;
+      border-radius: 12px;
+      padding: 8px 14px;
+      margin-top: 10px;
+      color: white;
+      cursor: pointer;
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 999;
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+      transition: background 2s ease;
+    }
+
+    .theme-toggle span {
+      font-size: 24px;
+      display: inline-block;
+      transition: all 0.8s ease;
+    }
+
+    .theme-toggle span.moon {
+      color: yellow;
+      text-shadow: 0 0 12px white;
+    }
+
+    .theme-toggle span.sun {
+      color: orange;
+      text-shadow: 0 0 12px gold;
+    }
+
+    body.light .info {
+      background: rgba(255, 255, 255, 0.7);
+      color: black;
+    }
+
+    body.light .info h1,
+    body.light .info p {
+      color: black;
+    }
+
+    body.light .info button {
+      background: #333;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="title">Personal pictures</div>
+
+  <div class="theme-toggle" id="themeToggle">
+    <span class="moon">🌙</span>
+  </div>
+
+  <div class="card-container">
+    <!-- CARD 1 -->
+    <div class="card">
+      <img src="IMG_20250406_141128_830.webp" alt="Joyfull">
+      <div class="layer"></div>
+      <div class="info">
+        <h1>JOYFULL</h1>
+        <p>
+          Character: Rayburn_509<br>
+          Location: Mnarani<br>
+          Info: This pic was taken during Muslim celebration (Eid-el-Fitri)
+        </p>
+        <button class="share-btn">SHARE</button>
+      </div>
+    </div>
+
+   
+    <!-- CARD 4 -->
+    <div class="card">
+      <img src="IMG_20250418_130607_963.webp" alt="Picture Show">
+      <div class="layer"></div>
+      <div class="info">
+        <h1>PICTURE SHOW</h1>
+        <p>
+          Subject: Rayburn_509 (Toxic)<br>
+          Location: Back door of Michenzani mall<br>
+          Info: Picture taken when guys suggested solo pic
+        </p>
+        <button class="share-btn">SHARE</button>
+      </div>
+    </div>
+
+    <!-- CARD 5 -->
+    <div class="card">
+      <img src="no 3.jpeg" alt="Happy Birthday">
+      <div class="layer"></div>
+      <div class="info">
+        <h1>HAPPY BIRTHDAY</h1>
+        <p>
+          Subject: Rayburn & Varane<br>
+          Location: Husein Academy<br>
+          Info: Picture taken during sibling's birthday
+        </p>
+        <button class="share-btn">SHARE</button>
+      </div>
+    </div>
+
+    <!-- CARD 6 -->
+    <div class="card">
+      <img src="IMG-20250401-WA0007.jpg" alt="1st holiday">
+      <div class="layer"></div>
+      <div class="info">
+        <h1>1st Holiday</h1>
+        <p>
+          Subject: Rayburn_509 (Toxic)<br>
+          Location: Mnarani lobby<br>
+          Info: It was first holiday at Eid el fitri
+        </p>
+        <button class="share-btn">SHARE</button>
+      </div>
+    </div>
+
+    <!-- CARD 7 -->
+    <div class="card">
+      <img src="DSC_0115.JPG.jpg" alt="5th holiday">
+      <div class="layer"></div>
+      <div class="info">
+        <h1>5th Holiday</h1>
+        <p>
+          Subject: Rayburn_509 (Toxic)<br>
+          Location: Forodhani hotel<br>
+          Info: 2025 Eid el fitri
+        </p>
+        <button class="share-btn">SHARE</button>
+      </div>
+    </div>
+
+    <!-- CARD 8 -->
+    <div class="card">
+      <img src="1743539713261.jpg" alt="5th holiday">
+      <div class="layer"></div>
+      <div class="info">
+        <h1>5th Holiday</h1>
+        <p>
+          Subject: Rayburn_509 (Toxic)<br>
+          Location: Mall front door<br>
+          Info: 2025 Eid el fitri
+        </p>
+        <button class="share-btn">SHARE</button>
+      </div>
+    </div>
+
+    <!-- CARD 9 -->
+    <div class="card">
+      <img src="retouch_2025051513082973.jpg" alt="5th holiday">
+      <div class="layer"></div>
+      <div class="info">
+        <h1>5th Holiday</h1>
+        <p>
+          Subject: Rayburn_509 (Toxic)<br>
+          Location: Forodhani Hotel<br>
+          Info: 2025 Eid el fitri
+        </p>
+        <button class="share-btn">SHARE</button>
+      </div>
+    </div>
+
+    <!-- CARD 10 -->
+    <div class="card">
+      <img src="BackgroundEraser_20241205_152254146.png" alt="2024 Eid - el - adh-har">
+      <div class="layer"></div>
+      <div class="info">
+        <h1>2024 Eid - el - adh-har</h1>
+        <p>
+          Subject: Rayburn_509 (Toxic)<br>
+          Location: Mall back door<br>
+          Info: Last holiday at Eid el fitri with bro Abubakar Varane and Sansiro (Bamuu)
+        </p>
+        <button class="share-btn">SHARE</button>
+      </div>
+    </div>
+
+    <!-- CARD 11 -->
+    <div class="card">
+      <img src="DSC_0115.JPG-01.jpeg" alt="6th holiday">
+      <div class="layer"></div>
+      <div class="info">
+        <h1>6th Holiday</h1>
+        <p>
+          Subject: Rayburn_509<br>
+          Location: Michenzani Mall Corridor<br>
+          Info: 2025 Eid el fitri
+        </p>
+        <button class="share-btn">SHARE</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const themeToggle = document.getElementById('themeToggle');
+    const span = themeToggle.querySelector('span');
+    const body = document.body;
+
+    function setTheme(theme) {
+      if (theme === 'light') {
+        body.classList.add('light');
+        span.className = 'sun';
+        span.textContent = '☀️';
+      } else {
+        body.classList.remove('light');
+        span.className = 'moon';
+        span.textContent = '🌙';
+      }
+    }
+
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    setTheme(savedTheme);
+
+    themeToggle.onclick = () => {
+      const currentTheme = body.classList.contains('light') ? 'light' : 'dark';
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      setTheme(newTheme);
+      localStorage.setItem('theme', newTheme);
+    };
+
+    // --- Share button functionality ---
+    document.querySelectorAll('.share-btn').forEach(btn => {
+      btn.addEventListener('click', async (e) => {
+        const card = e.target.closest('.card');
+        const title = card.querySelector('h1').innerText;
+        const info = card.querySelector('p').innerText;
+        const img = card.querySelector('img').src;
+
+        const shareData = {
+          title: title,
+          text: `${title}\n\n${info}\n\nShared from Rayburn_509 Gallery`,
+          url: window.location.href
+        };
+
+        if (navigator.share) {
+          try {
+            await navigator.share(shareData);
+          } catch (err) {
+            console.log('Share canceled or failed:', err);
+          }
+        } else {
+          // fallback for devices without native sharing
+          navigator.clipboard.writeText(`${shareData.text}\n${shareData.url}`).then(() => {
+            alert("Info copied to clipboard! You can now share it manually.");
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
